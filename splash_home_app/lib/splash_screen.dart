@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'home_page.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -17,35 +18,36 @@ class SplashScreen extends StatelessWidget {
       );
     });
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey.shade200, // Replace with your theme color
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                'assets/images/close.png', // Replace with your image path
-                fit: BoxFit.cover, // Ensures image covers the whole screen
-              ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 80.h), // Increased height by 10 pixels
-                    Text(
-                      'Nexushive',
-                      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: Colors.white, // Set text color to white
-                      ),
-                    ),
-                  ],
+    return Scaffold(
+      backgroundColor: Colors.grey.shade200, // Replace with your theme color
+      body: SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height, // Ensure it covers the entire screen
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Center(
+              child: Transform.scale(
+                scale: 0.7, // Scale the animation to 40% of its original size
+                child: Lottie.asset(
+                  'assets/animations/splash.json',
                 ),
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              bottom: 50.h, // Adjust the position of the text as needed
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Text(
+                  'Nexushive',
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    color: const Color.fromARGB(255, 0, 0, 0), // Set text color to white
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
