@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 import 'home_page.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -19,35 +18,24 @@ class SplashScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade200, // Replace with your theme color
-      body: SizedBox(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height, // Ensure it covers the entire screen
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Center(
-              child: Transform.scale(
-                scale: 0.7, // Scale the animation to 40% of its original size
-                child: Lottie.asset(
-                  'assets/animations/splash.json',
+      backgroundColor: Colors.black,
+      body: Center(
+        child: TweenAnimationBuilder(
+          tween: Tween<double>(begin: 0, end: 1),
+          duration: Duration(seconds: 2),
+          builder: (context, double opacity, child) {
+            return Opacity(
+              opacity: opacity,
+              child: Text(
+                'NexusHive.',
+                style: TextStyle(
+                  fontFamily: 'ProductSans',
+                  fontSize: 36.sp, // Adjust the size as needed
+                  color: Color.fromRGBO(255, 255, 255, 1),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 50.h, // Adjust the position of the text as needed
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Text(
-                  'Nexushive',
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    color: const Color.fromARGB(255, 0, 0, 0), // Set text color to white
-                  ),
-                ),
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
