@@ -36,9 +36,10 @@ class InfoPage extends StatelessWidget {
             child: Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF9BB168), // Fill color
                   side: BorderSide(
-                    color: const Color.fromARGB(255, 15, 157, 88),
-                    width: 4.0,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    width: 2.0,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),

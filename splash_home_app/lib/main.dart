@@ -3,6 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'splash_screen.dart';
 import 'home_page.dart';
 import 'info_page.dart';
+import 'health_goal_page.dart';
+import 'gender_selection_page.dart';
+import 'age_selection_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,12 +50,43 @@ class SplashScreen extends StatelessWidget {
           builder: (context, double opacity, child) {
             return Opacity(
               opacity: opacity,
-              child: Text(
-                'Nexushive.',
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: Colors.white,
-                      fontFamily: 'Product Sans',
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'Product Sans',
+                    fontSize: 36.sp, // Adjust the size as needed
+                    color: Colors.white, // Default text color
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'N',
+                      style: TextStyle(color: Color(0xFF4285F4)), // Color for N
                     ),
+                    TextSpan(
+                      text: 'e',
+                      style: TextStyle(color: Color(0xFFDB4437)), // Color for E
+                    ),
+                    TextSpan(
+                      text: 'x',
+                      style: TextStyle(color: Color(0xFFF4B400)), // Color for X
+                    ),
+                    TextSpan(
+                      text: 'u',
+                      style: TextStyle(color: Color(0xFF4285F4)), // Color for U
+                    ),
+                    TextSpan(
+                      text: 's',
+                      style: TextStyle(color: Color(0xFF0F9D58)), // Color for S
+                    ),
+                    TextSpan(
+                      text: 'Hive.',
+                      style: TextStyle(
+                        color: Colors.white, // Color for HIVE.
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -94,7 +128,7 @@ class _InfoScreensState extends State<InfoScreens> {
       });
     } else {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page')),
+        MaterialPageRoute(builder: (context) => const HealthGoalPage()),
       );
     }
   }
