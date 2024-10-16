@@ -8,11 +8,11 @@ class InfoPage extends StatelessWidget {
   final VoidCallback onNext;
 
   const InfoPage({
-    Key? key,
+    super.key,
     required this.svgPath,
     required this.isLastPage,
     required this.onNext,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class InfoPage extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF9BB168), // Fill color
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Color.fromARGB(255, 255, 255, 255),
                     width: 2.0,
                   ),

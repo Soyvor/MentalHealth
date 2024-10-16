@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class SplashScreen extends StatelessWidget {
                     fontSize: 36.sp, // Adjust the size as needed
                     color: Colors.white, // Default text color
                   ),
-                  children: [
+                  children: const [
                     TextSpan(
                       text: 'N',
                       style: TextStyle(color: Color(0xFF4285F4)), // Color for N
@@ -97,7 +97,7 @@ class SplashScreen extends StatelessWidget {
 }
 
 class InfoScreens extends StatefulWidget {
-  const InfoScreens({Key? key}) : super(key: key);
+  const InfoScreens({super.key});
 
   @override
   _InfoScreensState createState() => _InfoScreensState();

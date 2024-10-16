@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'gender_selection_page.dart';
 
 class HealthGoalPage extends StatefulWidget {
-  const HealthGoalPage({Key? key}) : super(key: key);
+  const HealthGoalPage({super.key});
 
   @override
   _HealthGoalPageState createState() => _HealthGoalPageState();
@@ -26,7 +26,7 @@ class _HealthGoalPageState extends State<HealthGoalPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute space between children
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white), // Back button icon
+                    icon: const Icon(Icons.arrow_back, color: Colors.white), // Back button icon
                     onPressed: () {
                       Navigator.of(context).pop(); // Navigate backward
                     },
@@ -55,8 +55,8 @@ class _HealthGoalPageState extends State<HealthGoalPage> {
               ),
               SizedBox(height: 20.h),
               ..._buildOptions(),
-              Spacer(),
-              Container(
+              const Spacer(),
+              SizedBox(
                 width: 343.w,
                 height: 56.h,
                 child: ElevatedButton(
@@ -66,7 +66,7 @@ class _HealthGoalPageState extends State<HealthGoalPage> {
                     );
                   } : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 170, 83, 29), // Button color
+                    backgroundColor: const Color.fromARGB(255, 170, 83, 29), // Button color
                     padding: EdgeInsets.zero, // Remove extra padding
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(1234), // Rounded corners
@@ -113,7 +113,7 @@ class _HealthGoalPageState extends State<HealthGoalPage> {
             width: 343.w,
             height: 56.h,
             decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFF9BB168) : Color.fromARGB(57, 238, 238, 238),
+              color: isSelected ? const Color(0xFF9BB168) : const Color.fromARGB(57, 238, 238, 238),
               borderRadius: BorderRadius.circular(1234), // Rounded corners
             ),
             child: Row(

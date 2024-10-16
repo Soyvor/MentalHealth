@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:splash_home_app/weight.dart';
 import 'home_page.dart';
 
 class AgeSelectionPage extends StatefulWidget {
-  const AgeSelectionPage({Key? key}) : super(key: key);
+  const AgeSelectionPage({super.key});
 
   @override
   _AgeSelectionPageState createState() => _AgeSelectionPageState();
@@ -40,14 +41,14 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                 padding: EdgeInsets.only(top: 16.h),
                 child: Text(
                   'Not eligible to use this app, prefer parent\'s authority before continuing',
-                  style: TextStyle(color: Color.fromARGB(255, 69, 122, 41), fontSize: 16.sp),
+                  style: TextStyle(color: const Color.fromARGB(255, 69, 122, 41), fontSize: 16.sp),
                 ),
               ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: _isValidAge ? () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page')),
+                  MaterialPageRoute(builder: (context) => const WeightSelectionPage()),
                 );
               } : null,
               style: ElevatedButton.styleFrom(
@@ -76,11 +77,11 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
       child: TextField(
         controller: _ageController,
         keyboardType: TextInputType.number,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white, // Text color inside the TextField
           fontFamily: 'ProductSans',
         ),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: 'Enter your age',
           labelStyle: TextStyle(

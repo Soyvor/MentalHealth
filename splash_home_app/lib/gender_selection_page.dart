@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'age_selection_page.dart';
 
 class GenderSelectionPage extends StatefulWidget {
-  const GenderSelectionPage({Key? key}) : super(key: key);
+  const GenderSelectionPage({super.key});
 
   @override
   _GenderSelectionPageState createState() => _GenderSelectionPageState();
@@ -26,7 +26,7 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white), // Back button icon
+                    icon: const Icon(Icons.arrow_back, color: Colors.white), // Back button icon
                     onPressed: () {
                       Navigator.of(context).pop(); // Navigate backward
                     },
@@ -55,7 +55,7 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
               ),
               SizedBox(height: 20.h),
               _buildGenderOptions(),
-              Spacer(),
+              const Spacer(),
               Column(
                 children: [
                   ElevatedButton(
@@ -117,7 +117,7 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
             height: 56.h, // Updated height
             margin: EdgeInsets.only(bottom: 16.h),
             decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFF9BB168) : Color.fromARGB(57, 238, 238, 238), // Background color
+              color: isSelected ? const Color(0xFF9BB168) : const Color.fromARGB(57, 238, 238, 238), // Background color
               borderRadius: BorderRadius.circular(100), // Rounded corners
             ),
             child: Center(

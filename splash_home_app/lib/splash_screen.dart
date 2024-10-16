@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'home_page.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
     ScreenUtil.init(context, designSize: const Size(360, 690));
 
     // Navigate to Home Page after 4 seconds
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Flutter Demo Home Page')),
       );
@@ -22,7 +22,7 @@ class SplashScreen extends StatelessWidget {
       body: Center(
         child: TweenAnimationBuilder(
           tween: Tween<double>(begin: 0, end: 1),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           builder: (context, double opacity, child) {
             return Opacity(
               opacity: opacity,
@@ -33,23 +33,23 @@ class SplashScreen extends StatelessWidget {
                     fontSize: 36.sp, // Base size for Nexus
                   ),
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: 'N',
                       style: TextStyle(color: Color(0xFF4285F4)), // Color for N
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: 'E',
                       style: TextStyle(color: Color(0xFFDB4437)), // Color for E
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: 'X',
                       style: TextStyle(color: Color(0xFFF4B400)), // Color for X
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: 'U',
                       style: TextStyle(color: Color(0xFF4285F4)), // Color for U
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: 'S',
                       style: TextStyle(color: Color(0xFF0F9D58)), // Color for S
                     ),
