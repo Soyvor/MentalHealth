@@ -1,14 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:splash_home_app/home_page.dart';
 import 'package:splash_home_app/stress.dart';
 
 class SleepPage extends StatefulWidget {
+  const SleepPage({super.key, required this.score}); // Receive score in the constructor
+
+  final int score; // Declare score to be passed from the previous page
+
   @override
   _SleepPageState createState() => _SleepPageState();
 }
 
 class _SleepPageState extends State<SleepPage> {
   double sliderValue = 2; // Default value representing "Poor"
+  int totalScore = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the total score with the score passed from the previous page
+    totalScore = widget.score;
+  }
+
+  void _calculateScore() {
+    if (sliderValue == 0) {
+      totalScore += 10; // Excellent
+    } else if (sliderValue == 1) {
+      totalScore += 8; // Good
+    } else if (sliderValue == 2) {
+      totalScore += 6; // Fair
+    } else if (sliderValue == 3) {
+      totalScore += 4; // Poor
+    } else if (sliderValue == 4) {
+      totalScore += 2; // Worst
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +42,7 @@ class _SleepPageState extends State<SleepPage> {
       appBar: AppBar(
         backgroundColor: Colors.brown,
         elevation: 0,
-        title: Text('Assessment'),
+        title: const Text('Assessment'),
         centerTitle: true,
       ),
       body: Padding(
@@ -25,12 +50,12 @@ class _SleepPageState extends State<SleepPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'How would you rate your sleep quality?',
               style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Expanded(
               child: Row(
                 children: [
@@ -46,7 +71,7 @@ class _SleepPageState extends State<SleepPage> {
                       sleepQualityLabel('Worst', '<3 HOURS'),
                     ],
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   // Vertical slider using RotatedBox
                   Expanded(
                     child: RotatedBox(
@@ -54,8 +79,8 @@ class _SleepPageState extends State<SleepPage> {
                       child: SliderTheme(
                         data: SliderTheme.of(context).copyWith(
                           trackHeight: 8.0,
-                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 16.0),
-                          overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
+                          thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 16.0),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
                         ),
                         child: Slider(
                           value: sliderValue,
@@ -73,7 +98,7 @@ class _SleepPageState extends State<SleepPage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   // Emojis on the right side
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,19 +113,23 @@ class _SleepPageState extends State<SleepPage> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                _calculateScore(); // Calculate the total score
+
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => StressPage()),
+                  MaterialPageRoute(
+                    builder: (context) => StressPage(score: totalScore), // Pass the score to the next page
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.brown,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Continue',
                   style: TextStyle(fontSize: 18, color: Colors.white),
@@ -119,11 +148,11 @@ class _SleepPageState extends State<SleepPage> {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         Text(
           hours,
-          style: TextStyle(fontSize: 14, color: Colors.white54),
+          style: const TextStyle(fontSize: 14, color: Colors.white54),
         ),
       ],
     );

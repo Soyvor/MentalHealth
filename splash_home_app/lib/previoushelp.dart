@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'physicalpain.dart'; // Import your physicalpain.dart file
+import 'package:splash_home_app/physicalpain.dart'; // Import the next page file
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PreviousHelpPage(),
+    return const MaterialApp(
+      home: PreviousHelpPage(score: null), // Passing null is allowed
     );
   }
 }
 
 class PreviousHelpPage extends StatefulWidget {
-  const PreviousHelpPage({super.key});
+  final int? score; // Make score nullable
+
+  const PreviousHelpPage({super.key, this.score});
 
   @override
   _PreviousHelpPageState createState() => _PreviousHelpPageState();
@@ -23,6 +25,7 @@ class PreviousHelpPage extends StatefulWidget {
 
 class _PreviousHelpPageState extends State<PreviousHelpPage> {
   bool _hasSoughtHelp = false;
+  int score = 0; // Track the score here
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +93,7 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                   onPressed: () {
                     setState(() {
                       _hasSoughtHelp = true;
+                      score = 10; // Give 10 points if 'Yes'
                     });
                   },
                   child: const Text(
@@ -110,6 +114,7 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                   onPressed: () {
                     setState(() {
                       _hasSoughtHelp = false;
+                      score = 5; // Give 5 points if 'No'
                     });
                   },
                   child: const Text(
@@ -129,10 +134,12 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                 ),
               ),
               onPressed: () {
-                // Navigate to PhysicalPainPage
+                // Pass the score to the next page
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AssessmentPage()),
+                  MaterialPageRoute(
+                    builder: (context) => AssessmentPage(score: score),
+                  ),
                 );
               },
               child: const Text(

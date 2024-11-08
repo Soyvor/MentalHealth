@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'mood_selection_page.dart'; // Import the MoodSelectionPage
 
 class WeightSelectionPage extends StatefulWidget {
-  const WeightSelectionPage({super.key});
+  const WeightSelectionPage({super.key, required int score});
 
   @override
   _WeightSelectionPageState createState() => _WeightSelectionPageState();
@@ -12,6 +12,7 @@ class WeightSelectionPage extends StatefulWidget {
 class _WeightSelectionPageState extends State<WeightSelectionPage> {
   double _currentWeight = 128; // Default weight value
   bool isKgSelected = true; // Default to kg
+  int _score = 0; // Variable to store the calculated score
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +108,16 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
                   ),
                 ),
                 onPressed: () {
-                  // Navigate to the Mood Selection Page
+                  // Calculate the score based on weight
+                  setState(() {
+                    _calculateScore();
+                  });
+
+                  // Navigate to the Mood Selection Page, passing the score
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MoodSelectionPage(),
+                      builder: (context) => MoodSelectionPage(score: _score),
                     ),
                   );
                 },
@@ -154,5 +160,24 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
         ),
       ),
     );
+  }
+
+  // Calculate the score based on weight
+  void _calculateScore() {
+    if (isKgSelected) {
+      if (_currentWeight >= 60 && _currentWeight <= 80) {
+        _score = 10; // Higher score for 60-80 kg range
+      } else {
+        _score = 5; // Lower score for other weights
+      }
+    } else {
+      // Convert lbs to kg for comparison (1 lb = 0.453592 kg)
+      double weightInKg = _currentWeight * 0.453592;
+      if (weightInKg >= 60 && weightInKg <= 80) {
+        _score = 10; // Higher score for 60-80 kg range
+      } else {
+        _score = 5; // Lower score for other weights
+      }
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'age_selection_page.dart';
+import 'age_selection_page.dart'; // Make sure this page can accept the score
 
 class GenderSelectionPage extends StatefulWidget {
   const GenderSelectionPage({super.key});
@@ -11,6 +11,7 @@ class GenderSelectionPage extends StatefulWidget {
 
 class _GenderSelectionPageState extends State<GenderSelectionPage> {
   String? _selectedGender;
+  int _score = 0; // Initialize the score
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +61,20 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
+                      // Update the score based on the selection
+                      if (_selectedGender == 'Male') {
+                        _score += 5;
+                      } else if (_selectedGender == 'Female') {
+                        _score += 3;
+                      } else {
+                        _score += 0;
+                      }
+
+                      // Navigate to the next page and pass the score
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const AgeSelectionPage()),
+                        MaterialPageRoute(
+                          builder: (context) => AgeSelectionPage(score: _score), // Pass the score to AgeSelectionPage
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(

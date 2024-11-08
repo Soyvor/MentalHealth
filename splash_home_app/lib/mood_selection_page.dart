@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splash_home_app/previoushelp.dart';
 
 class MoodSelectionPage extends StatefulWidget {
-  const MoodSelectionPage({super.key});
+  const MoodSelectionPage(
+      {super.key, required this.score}); // Receive score from previous page
+
+  final int score;
 
   @override
   _MoodSelectionPageState createState() => _MoodSelectionPageState();
@@ -11,6 +14,7 @@ class MoodSelectionPage extends StatefulWidget {
 
 class _MoodSelectionPageState extends State<MoodSelectionPage> {
   int _selectedMood = 2; // Default mood index (Neutral)
+  late int currentScore;
 
   final List<String> moodDescriptions = [
     "I Feel Sad.",
@@ -37,6 +41,12 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    currentScore = widget.score; // Initialize score passed from previous page
+  }
+
+  @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 690));
 
@@ -50,7 +60,10 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PreviousHelpPage()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    PreviousHelpPage(score: currentScore), // Passing the score
+              ),
             );
           },
         ),
@@ -117,10 +130,19 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
                     ),
                   ),
                   onPressed: () {
-                    // Navigate to PreviousHelpPage when the button is pressed
+                    // Calculate score based on mood
+                    int moodScore = _calculateMoodScore();
+
+                    // Add the mood score to the previous score
+                    currentScore += moodScore;
+
+                    // Navigate to PreviousHelpPage and pass the updated score
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PreviousHelpPage()),
+                      MaterialPageRoute(
+                        builder: (context) => PreviousHelpPage(
+                            score: currentScore), // Pass the updated score
+                      ),
                     );
                   },
                   child: Text(
@@ -180,6 +202,24 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
       size: 50.sp,
       color: _selectedMood == index ? moodColors[index] : Colors.brown.shade600,
     );
+  }
+
+  // Function to calculate mood score based on the selected mood
+  int _calculateMoodScore() {
+    switch (_selectedMood) {
+      case 0: // Sad
+        return 1; // Lower score for sad mood
+      case 1: // Anxious
+        return 2; // Slightly higher score for anxious mood
+      case 2: // Neutral
+        return 3; // Neutral mood score
+      case 3: // Happy
+        return 4; // Higher score for happy mood
+      case 4: // Excited
+        return 5; // Highest score for excited mood
+      default:
+        return 0; // Default case (should never happen)
+    }
   }
 }
 

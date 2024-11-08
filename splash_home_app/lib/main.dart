@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'splash_screen.dart';
-import 'home_page.dart';
 import 'info_page.dart';
 import 'health_goal_page.dart';
-import 'gender_selection_page.dart';
-import 'age_selection_page.dart';
 
 void main() {
   runApp(const MyApp());

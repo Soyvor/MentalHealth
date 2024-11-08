@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splash_home_app/weight.dart';
-import 'home_page.dart';
 
 class AgeSelectionPage extends StatefulWidget {
-  const AgeSelectionPage({super.key});
+  final int score;
+
+  const AgeSelectionPage({super.key, required this.score});
 
   @override
   _AgeSelectionPageState createState() => _AgeSelectionPageState();
@@ -13,6 +14,13 @@ class AgeSelectionPage extends StatefulWidget {
 class _AgeSelectionPageState extends State<AgeSelectionPage> {
   final TextEditingController _ageController = TextEditingController();
   bool _isValidAge = true;
+  int _currentScore = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentScore = widget.score; // Initialize score from the previous page
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +31,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Spacer to push title a few pixels down from the top
-            SizedBox(height: 40.h), // Adjust this value to move the title further down
+            SizedBox(height: 40.h),
             Text(
               "Select or enter your age:",
               style: TextStyle(
@@ -34,7 +41,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                 color: Colors.white, // Text color
               ),
             ),
-            SizedBox(height: 20.h), // Space between title and age picker
+            SizedBox(height: 20.h),
             _buildAgePicker(context),
             if (!_isValidAge)
               Padding(
@@ -47,18 +54,31 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
             const Spacer(),
             ElevatedButton(
               onPressed: _isValidAge ? () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const WeightSelectionPage()),
-                );
+                // Update score based on age
+                final age = int.tryParse(_ageController.text);
+                if (age != null) {
+                  if (age < 18) {
+                    _currentScore += 0; // Age below 18, no score change
+                  } else if (age >= 18 && age <= 30) {
+                    _currentScore += 5; // Age between 18-30, score +5
+                  } else {
+                    _currentScore += 3; // Age above 30, score +3
+                  }
+
+                  // Navigate to next page with updated score
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => WeightSelectionPage(score: _currentScore)),
+                  );
+                }
               } : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Button color
-                minimumSize: Size(343.w, 56.h), // Button size
+                backgroundColor: Colors.black,
+                minimumSize: Size(343.w, 56.h),
               ),
               child: const Text(
                 'Continue',
                 style: TextStyle(
-                  color: Colors.white, // Text color
+                  color: Colors.white,
                   fontFamily: 'ProductSans',
                 ),
               ),
@@ -78,7 +98,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
         controller: _ageController,
         keyboardType: TextInputType.number,
         style: const TextStyle(
-          color: Colors.white, // Text color inside the TextField
+          color: Colors.white,
           fontFamily: 'ProductSans',
         ),
         decoration: const InputDecoration(
@@ -86,13 +106,13 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
           labelText: 'Enter your age',
           labelStyle: TextStyle(
             fontFamily: 'ProductSans',
-            color: Colors.white, // Color of the label text
+            color: Colors.white,
           ),
         ),
         onChanged: (value) {
           setState(() {
             final age = int.tryParse(value);
-            _isValidAge = age != null && age >= 18 && age<100;
+            _isValidAge = age != null && age >= 18 && age < 100;
           });
         },
       ),

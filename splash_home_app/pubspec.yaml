@@ -40,10 +40,13 @@ dependencies:
   animated_splash_screen: ^1.3.0
   flutter_native_splash: ^2.4.1
   image_picker: ^1.1.2
+  url_launcher: ^6.3.1
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  font_awesome_flutter: ^10.1.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,12 +61,15 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
+    - assets/constants.json
     - assets/images/
     - assets/animations/splash.json
     - assets/images/Welcome Screen.svg
     - assets/images/Welcome Screen-1.svg
     - assets/images/Welcome Screen-2.svg
     - assets/images/Welcome Screen-3.svg
+    - assets/images/spotify-logo.png
+
   fonts:
     - family: ProductSans
       fonts:
