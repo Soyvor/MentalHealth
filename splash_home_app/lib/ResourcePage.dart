@@ -36,14 +36,6 @@ class VideoListPage extends StatelessWidget {
       "duration": "2:14"
     },
     {
-      "title": "How To Deal With Anxiety | Buddhism In English",
-      "channel": "Ted-Ed",
-      "url": "https://www.youtube.com/watch?v=nnSRJ5PRPWQ",
-      "thumbnail":
-          "https://i.ytimg.com/an_webp/nnSRJ5PRPWQ/mqdefault_6s.webp?du=3000&sqp=COTkubkG&rs=AOn4CLByCOWVzy_vFmavvW6Pa_O-NlP83Q", 
-      "duration": "12:08"
-    },
-    {
       "title": "What causes panic attacks, and how can you prevent them? - Cindy J. Aaronson",
       "channel": "Ted-Ed",
       "url": "https://www.youtube.com/watch?v=IzFObkVRSV0&list=PLJicmE8fK0EgFqcHoA4ufzsPD6VQThV5S&index=10",

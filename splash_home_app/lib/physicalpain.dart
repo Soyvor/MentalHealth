@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'sleep.dart';
 import 'home_page.dart'; // Make sure to import your sleep.dart file
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: AssessmentPage(score: 0,),
+      home: AssessmentPage(score: 0),
     );
   }
 }
 
 class AssessmentPage extends StatefulWidget {
-  const AssessmentPage({super.key, required int score});
+  const AssessmentPage({super.key, required this.score});
+
+  final int score;
 
   @override
   _AssessmentPageState createState() => _AssessmentPageState();
@@ -125,15 +125,18 @@ class _AssessmentPageState extends State<AssessmentPage> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {
-                updateScore(); // Update score when continue is pressed
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SleepPage(score: score), // Pass the score to the next page
-                  ),
-                );
-              },
+              onPressed: selectedOption.isNotEmpty
+                  ? () {
+                      updateScore(); // Update score when continue is pressed
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SleepPage(score: score), // Pass the score to the next page
+                        ),
+                      );
+                    }
+                  : null, // Disable button if no option is selected
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.brown,
                 padding: const EdgeInsets.symmetric(vertical: 16),

@@ -61,21 +61,31 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // Update the score based on the selection
-                      if (_selectedGender == 'Male') {
-                        _score += 5;
-                      } else if (_selectedGender == 'Female') {
-                        _score += 3;
-                      } else {
-                        _score += 0;
-                      }
+                      // Check if a gender is selected before proceeding
+                      if (_selectedGender != null) {
+                        // Update the score based on the selection
+                        if (_selectedGender == 'Male') {
+                          _score += 5;
+                        } else if (_selectedGender == 'Female') {
+                          _score += 3;
+                        } else {
+                          _score += 0;
+                        }
 
-                      // Navigate to the next page and pass the score
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => AgeSelectionPage(score: _score), // Pass the score to AgeSelectionPage
-                        ),
-                      );
+                        // Navigate to the next page and pass the score
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => AgeSelectionPage(score: _score), // Pass the score to AgeSelectionPage
+                          ),
+                        );
+                      } else {
+                        // Show an error message if no gender is selected
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please select a gender before continuing'),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black, // Button color

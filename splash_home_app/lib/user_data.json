@@ -1,4 +1,14 @@
 {
-    "gender": "Male"
-  }
-  
+  "User_ID": "12345",
+  "Age": 30,
+  "Gender": "Male",
+  "Occupation": "Software Developer",
+  "Country": "United States",
+  "Mental_Health_Condition": "Anxiety",
+  "Severity": "Moderate",
+  "Consultation_History": "Anxiety",
+  "Stress_Level": "High",
+  "Sleep_Hours": 6,
+  "Work_Hours": 9,
+  "Physical_Activity_Hours": 1
+}

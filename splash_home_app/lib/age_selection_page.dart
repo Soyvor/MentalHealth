@@ -13,7 +13,7 @@ class AgeSelectionPage extends StatefulWidget {
 
 class _AgeSelectionPageState extends State<AgeSelectionPage> {
   final TextEditingController _ageController = TextEditingController();
-  bool _isValidAge = true;
+  bool _isValidAge = false; // Set to false initially to prevent navigation
   int _currentScore = 0;
 
   @override
@@ -70,7 +70,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                     MaterialPageRoute(builder: (context) => WeightSelectionPage(score: _currentScore)),
                   );
                 }
-              } : null,
+              } : null, // Disable button if age is not valid
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 minimumSize: Size(343.w, 56.h),

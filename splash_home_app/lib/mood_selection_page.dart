@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:splash_home_app/previoushelp.dart';
 
 class MoodSelectionPage extends StatefulWidget {
-  const MoodSelectionPage(
-      {super.key, required this.score}); // Receive score from previous page
+  const MoodSelectionPage({super.key, required this.score}); // Receive score from previous page
 
   final int score;
 
@@ -13,7 +12,7 @@ class MoodSelectionPage extends StatefulWidget {
 }
 
 class _MoodSelectionPageState extends State<MoodSelectionPage> {
-  int _selectedMood = 2; // Default mood index (Neutral)
+  int _selectedMood = -1; // No mood selected initially
   late int currentScore;
 
   final List<String> moodDescriptions = [
@@ -97,7 +96,9 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
               ),
               SizedBox(height: 20.h),
               Text(
-                moodDescriptions[_selectedMood],
+                _selectedMood != -1
+                    ? moodDescriptions[_selectedMood]
+                    : "Please select a mood",
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
@@ -106,9 +107,12 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
               ),
               SizedBox(height: 30.h),
               Icon(
-                moodIcons[_selectedMood],
+                _selectedMood != -1
+                    ? moodIcons[_selectedMood]
+                    : Icons.help_outline,
                 size: 100.sp,
-                color: moodColors[_selectedMood],
+                color:
+                    _selectedMood != -1 ? moodColors[_selectedMood] : Colors.grey,
               ),
               SizedBox(height: 20.h),
               const Icon(
@@ -130,20 +134,29 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
                     ),
                   ),
                   onPressed: () {
-                    // Calculate score based on mood
-                    int moodScore = _calculateMoodScore();
+                    if (_selectedMood == -1) {
+                      // Show a message if no mood is selected
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Please select a mood before continuing."),
+                        ),
+                      );
+                    } else {
+                      // Calculate score based on mood
+                      int moodScore = _calculateMoodScore();
 
-                    // Add the mood score to the previous score
-                    currentScore += moodScore;
+                      // Add the mood score to the previous score
+                      currentScore += moodScore;
 
-                    // Navigate to PreviousHelpPage and pass the updated score
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PreviousHelpPage(
-                            score: currentScore), // Pass the updated score
-                      ),
-                    );
+                      // Navigate to PreviousHelpPage and pass the updated score
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PreviousHelpPage(
+                              score: currentScore), // Pass the updated score
+                        ),
+                      );
+                    }
                   },
                   child: Text(
                     "Continue →",
@@ -181,9 +194,7 @@ class _MoodSelectionPageState extends State<MoodSelectionPage> {
           for (int i = 0; i < moodIcons.length; i++)
             Positioned(
               bottom: 10.h +
-                  (i % 2 == 0
-                      ? 0
-                      : 10.h), // Alternating positions for arc effect
+                  (i % 2 == 0 ? 0 : 10.h), // Alternating positions for arc effect
               left: i * 60.w, // Spread the icons evenly
               child: GestureDetector(
                 onTap: () => setState(() => _selectedMood = i),

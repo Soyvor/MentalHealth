@@ -11,7 +11,7 @@ class WeightSelectionPage extends StatefulWidget {
 
 class _WeightSelectionPageState extends State<WeightSelectionPage> {
   double _currentWeight = 128; // Default weight value
-  bool isKgSelected = true; // Default to kg
+  bool? isKgSelected; // Set to null initially to indicate no selection
   int _score = 0; // Variable to store the calculated score
 
   @override
@@ -60,14 +60,14 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildWeightUnitButton('kg', isKgSelected),
-                _buildWeightUnitButton('lbs', !isKgSelected),
+                _buildWeightUnitButton('kg', isKgSelected == true),
+                _buildWeightUnitButton('lbs', isKgSelected == false),
               ],
             ),
             SizedBox(height: 30.h),
             Center(
               child: Text(
-                _currentWeight.toStringAsFixed(0) + (isKgSelected ? ' kg' : ' lbs'),
+                _currentWeight.toStringAsFixed(0) + (isKgSelected == true ? ' kg' : ' lbs'),
                 style: TextStyle(
                   fontSize: 80.sp,
                   fontWeight: FontWeight.bold,
@@ -108,18 +108,25 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
                   ),
                 ),
                 onPressed: () {
-                  // Calculate the score based on weight
-                  setState(() {
+                  if (isKgSelected != null) {
+                    // Calculate the score based on weight
                     _calculateScore();
-                  });
 
-                  // Navigate to the Mood Selection Page, passing the score
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MoodSelectionPage(score: _score),
-                    ),
-                  );
+                    // Navigate to the Mood Selection Page, passing the score
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MoodSelectionPage(score: _score),
+                      ),
+                    );
+                  } else {
+                    // Show a message if no unit is selected
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Please select kg or lbs before continuing."),
+                      ),
+                    );
+                  }
                 },
                 child: Text(
                   "Continue →",
@@ -164,7 +171,7 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
 
   // Calculate the score based on weight
   void _calculateScore() {
-    if (isKgSelected) {
+    if (isKgSelected == true) {
       if (_currentWeight >= 60 && _currentWeight <= 80) {
         _score = 10; // Higher score for 60-80 kg range
       } else {

@@ -153,24 +153,6 @@ class StressScorePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
-              const SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () {
-                  // Add navigation or function for "Do I need to worry?"
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8B5D3C),
-                  minimumSize: const Size(400, 80),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: const Text(
-                  'Do I need to worry?',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-
               const Spacer(),
 
               // "Need Calm Sleep" button to navigate to SpotifyPage

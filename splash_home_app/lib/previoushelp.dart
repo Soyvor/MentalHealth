@@ -24,7 +24,7 @@ class PreviousHelpPage extends StatefulWidget {
 }
 
 class _PreviousHelpPageState extends State<PreviousHelpPage> {
-  bool _hasSoughtHelp = false;
+  bool? _hasSoughtHelp; // Track whether an option is selected
   int score = 0; // Track the score here
 
   @override
@@ -66,7 +66,6 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
               ),
             ),
             const SizedBox(height: 40),
-            // Add the illustration image here
             Container(
               height: 200,
               width: 200,
@@ -75,7 +74,6 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.person, size: 150, color: Colors.orange),
-              // Replace with the image widget as required
             ),
             const SizedBox(height: 30),
             Row(
@@ -84,7 +82,7 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                 // Yes Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _hasSoughtHelp ? Colors.green : Colors.brown[800],
+                    backgroundColor: _hasSoughtHelp == true ? Colors.green : Colors.brown[800],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -105,7 +103,7 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                 // No Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: !_hasSoughtHelp ? Colors.brown[800] : Colors.brown[800],
+                    backgroundColor: _hasSoughtHelp == false ? Colors.green : Colors.brown[800],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -134,13 +132,22 @@ class _PreviousHelpPageState extends State<PreviousHelpPage> {
                 ),
               ),
               onPressed: () {
-                // Pass the score to the next page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AssessmentPage(score: score),
-                  ),
-                );
+                // Check if an option has been selected before navigating
+                if (_hasSoughtHelp != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AssessmentPage(score: score),
+                    ),
+                  );
+                } else {
+                  // Show a message if no option is selected
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please select an option before continuing.'),
+                    ),
+                  );
+                }
               },
               child: const Text(
                 'Continue',

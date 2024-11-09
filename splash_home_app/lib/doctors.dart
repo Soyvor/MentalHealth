@@ -1,78 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DoctorsPage extends StatelessWidget {
   final List<Map<String, String>> doctors = [
     {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://img.freepik.com/premium-vector/vector-illustration-doctor-avatar-photo-doctor-fill-out-questionnaire-banner-set-more-doctor-health-medical-icon_469123-417.jpg?semt=ais_hybrid" // Stock avatar URL
+      "name": "Dr Pankaj Borade - Mind Matters Clinic",
+      "clinicNumber": "Office no. 510, 10th Floor, Antariksh Towers, Station",
+      "address": "Camp, Pune",
+      "avatar": "https://imagesx.practo.com/providers/dr-pankaj-b-borade-psychiatrist-pune-364e8dec-ecc8-47c5-bb39-2eeaab0e8852.jpg?i_type=t_70x70",
+      "url": "https://www.practo.com/pune/clinic/atharva-clinic-nibm-1"
     },
     {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://img.freepik.com/premium-vector/vector-illustration-doctor-avatar-photo-doctor-fill-out-questionnaire-banner-set-more-doctor-health-medical-icon_469123-417.jpg?semt=ais_hybrid" // Stock avatar URL
+      "name": "Dr. Kishor Jadhavar",
+      "clinicNumber": "14 Years Experience Overall  (10 years as specialist)",
+      "address": "Office Number 504, 5th Floor Mundhwa Railway Bridge, Pune",
+      "avatar": "https://imagesx.practo.com/providers/dr-kishor-jadhavar-psychiatrist-pune-182bb15b-4916-467e-8081-d4eb1f1a0d84.jpg?i_type=t_70x70",
+      "url": "https://www.practo.com/pune/doctor/dr-kishor-v-jadhavar-psychiatrist?practice_id=1427046&specialization=Psychiatrist&referrer=doctor_listing&page_uid=915769a7-b01b-4ac9-b7f3-0895edea9d21"
     },
     {
-      "name": "Dr. Emma Williams",
-      "clinicNumber": "555-123-4567",
-      "address": "789 Care Blvd, SF",
-      "avatar": "https://media.istockphoto.com/id/2077095666/vector/default-placeholder-doctor-portrait-photo-avatar-on-gray-background-greyscale-healthcare.jpg?s=612x612&w=0&k=20&c=en2o7NAtzp_udRQhckeWozkwHiXGz5KCRhTzY3Vbhdo="
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://img.freepik.com/premium-vector/vector-illustration-doctor-avatar-photo-doctor-fill-out-questionnaire-banner-set-more-doctor-health-medical-icon_469123-417.jpg?semt=ais_hybrid" // Stock avatar URL
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://img.freepik.com/premium-vector/vector-illustration-doctor-avatar-photo-doctor-fill-out-questionnaire-banner-set-more-doctor-health-medical-icon_469123-417.jpg?semt=ais_hybrid" // Stock avatar URL
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://img.freepik.com/premium-vector/vector-illustration-doctor-avatar-photo-doctor-fill-out-questionnaire-banner-set-more-doctor-health-medical-icon_469123-417.jpg?semt=ais_hybrid" // Stock avatar URL
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://www.shutterstock.com/image-vector/female-doctor-avatar-african-american-600nw-1901708815.jpg" // Stock avatar URL
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://img.freepik.com/premium-vector/vector-illustration-doctor-avatar-photo-doctor-fill-out-questionnaire-banner-set-more-doctor-health-medical-icon_469123-417.jpg?semt=ais_hybrid" // Stock avatar URL
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://www.shutterstock.com/image-vector/female-doctor-avatar-african-american-600nw-1901708815.jpg" // Stock avatar URL
-    },
-    {
-      "name": "Dr. M B Pethe",
-      "clinicNumber": "123-456-7890",
-      "address": "123 Health St, NY",
-      "avatar": "https://www.shutterstock.com/image-vector/female-doctor-avatar-african-american-600nw-1901708815.jpg" // Stock avatar URL
+      "name": "Dr. Ruth Fernandes",
+      "clinicNumber": "19 Years Experience Overall  (18 years as specialist)",
+      "address": "789 Care Blvd, SF21, 3rd floor, B wing, City VIsta building, Fountain road., Landmark:",
+      "avatar": "https://imagesx.practo.com/providers/dr-ruth-fernandes-psychiatrist-pune-e1311a36-2bb3-4670-af70-b8fa77e8bebe.jpg?i_type=t_70x70",
+      "url": "https://www.practo.com/pune/doctor/ruth-fernandes-psychiatrist?practice_id=1240912&specialization=Psychiatrist&referrer=doctor_listing&page_uid=915769a7-b01b-4ac9-b7f3-0895edea9d21"
     },
     // Add more doctors as needed
   ];
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doctors List'),
+        title: Text(
+          'Doctors List',
+          style: TextStyle(color: Colors.white), // Set title text color to white
+        ),
         backgroundColor: Color(0xFF251404), // Dark brown color
       ),
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: Color(0xFF251404),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
@@ -81,57 +53,55 @@ class DoctorsPage extends StatelessWidget {
             final doctor = doctors[index];
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Implement any action when the button is pressed, like navigating to a detail page
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF8B5D3C), // Button color
-                  padding: EdgeInsets.all(16),
-                  shape: RoundedRectangleBorder(
+              child: GestureDetector(
+                onTap: () => _launchURL(doctor['url']!),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF8B5D3C),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 24,
-                      backgroundImage: NetworkImage(doctor['avatar']!),
-                      backgroundColor: Colors.grey[300], // Placeholder color if image fails
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            doctor['name']!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            "Clinic Number: ${doctor['clinicNumber']!}",
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            doctor['address']!,
-                            style: TextStyle(
-                              color: Colors.white60,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
+                  padding: EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundImage: NetworkImage(doctor['avatar']!),
+                        backgroundColor: Colors.grey[300], // Placeholder color if image fails
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              doctor['name']!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              "Clinic Number: ${doctor['clinicNumber']!}",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              doctor['address']!,
+                              style: TextStyle(
+                                color: Colors.white60,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
